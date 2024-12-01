@@ -103,7 +103,7 @@ function SupportPage(params) {
                             type="submit"
                             className={`w-[10%] py-2 px-4 rounded-full ${Filled ? "bg-orange-500 hover:bg-orange-600" : "bg-gray-400 cursor-not-allowed"
                                 } text-white`}
-                            disabled={!Filled} // Disable the button if 'Filled' is false
+                            disabled={!Filled} 
                         >
                             SEND
                         </button>

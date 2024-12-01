@@ -7,14 +7,14 @@ function Calculator() {
   const [input, setInput] = useState("0");
   const [history, setHistory] = useState([]);
   const [displayedInput, setDisplayedInput] = useState("0");
+  // displayed input buat display input dari tombol yang kita pencet satu per satu
   const navigate = useNavigate();
-  // Handle number and operator inputs
   const inputChar = (e) => {
     if (input === "0" || input === "Error") {
-      setInput(e); // Replace "0" or "Error" with the new input
+      setInput(e); 
       setDisplayedInput(e);
     } else {
-
+      // Logic supaya setiap display inputnya hanya 1 yaitu value yang kita pencet di tombol.
       setInput(input + e);
       if (e == "+" || e == "-" || e == "*" || e == "/") {
         setDisplayedInput(e);
@@ -30,13 +30,11 @@ function Calculator() {
 
   };
 
-  // Clear button resets everything
   const clear = () => {
     setInput("0");
     setDisplayedInput("0");
   };
 
-  // Delete button removes the last character
   const deleteLast = () => {
     if (input.length > 1) {
       const newInput = input.slice(0, -1);
@@ -48,20 +46,20 @@ function Calculator() {
     }
   };
 
-  // Equals button handles the calculation
+ 
   const calculate = () => {
     try {
-      const result = eval(input); // Use eval to evaluate the expression
+      const result = eval(input); 
       if (isNaN(result)) {
-        setInput("Error");
-        setDisplayedInput("Error");
+        setInput("Err");
+        setDisplayedInput("Err");
       } else {
         setInput(result.toString());
         setDisplayedInput(result.toString());
         setHistory((prev) => [...prev, result]);
       }
     } catch (error) {
-      setInput("Error"); // Catch any error like invalid expressions
+      setInput("Err"); 
     }
   };
 
@@ -82,7 +80,6 @@ function Calculator() {
           </div>
         </div>
 
-        {/* Buttons */}
         <div className="grid grid-cols-4 gap-4">
             
           <button className="bg-[#a5a5a5] rounded-full aspect-square p-4 text-lg  hover:bg-[#7c7c7c] hover:scale-105 hover:shadow-lg transition-all" onClick={clear}>
