@@ -17,7 +17,7 @@ function SupportPage(params) {
 
     useEffect(() => {
 
-        if (FirstName && LastName && Email && Radio) {
+        if (FirstName && Email && Radio) {
             setFilled(true);
         } else {
             setFilled(false);
@@ -83,6 +83,7 @@ function SupportPage(params) {
                                         id="bug"
                                         className="peer hidden"
                                         checked={Radio === "Bug"}
+                                        
                                         onChange={(e) => setRadio("Bug")}
                                     />
                                     <span className="w-2.5 h-2.5 border-2 border-gray-300 rounded-full inline-block mr-2 transition-all peer-checked:bg-orange-500 peer-checked:border-gray-300 peer-focus:ring-4 peer-focus:ring-gray-500"></span>
@@ -95,6 +96,8 @@ function SupportPage(params) {
                             <textarea
                                 placeholder="Description Report"
                                 className=" bg-black w-full h-full border border-gray-300 rounded-md p-4 focus:outline-none focus:border-orange-500 resize-none "
+                                value={Description ?? ""}
+                                onChange={(e) => setDescription(e.target.value || null)}
                             />
                         </div>
                     </div>

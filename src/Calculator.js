@@ -9,9 +9,12 @@ function Calculator() {
   const [displayedInput, setDisplayedInput] = useState("0");
   // displayed input buat display input dari tombol yang kita pencet satu per satu
   const navigate = useNavigate();
+  // Validation input
+  const isValidInput = (input) => /^[0-9+\-*/(). ]+$/.test(input);
+
   const inputChar = (e) => {
     if (input === "0" || input === "Error") {
-      setInput(e); 
+      setInput(e);
       setDisplayedInput(e);
     } else {
       // Logic supaya setiap display inputnya hanya 1 yaitu value yang kita pencet di tombol.
@@ -46,42 +49,47 @@ function Calculator() {
     }
   };
 
- 
+
   const calculate = () => {
-    try {
-      const result = eval(input); 
-      if (isNaN(result)) {
+
+    if (isValidInput(input)) {
+      try {
+        const result = eval(input);
+        if (isNaN(result)) {
+          setInput("Err");
+          setDisplayedInput("Err");
+        } else {
+          setInput(result.toString());
+          setDisplayedInput(result.toString());
+          setHistory((prev) => [...prev, result]);
+        }
+      } catch (error) {
         setInput("Err");
-        setDisplayedInput("Err");
-      } else {
-        setInput(result.toString());
-        setDisplayedInput(result.toString());
-        setHistory((prev) => [...prev, result]);
       }
-    } catch (error) {
-      setInput("Err"); 
+    } else {
+      setInput("Err");
+      setDisplayedInput("Err");
     }
+
   };
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-500">
       <div className="bg-black text-white rounded-2xl shadow-lg p-4">
-        {/* Top Section: History and Result */}
         <div className="flex bg-[#585657] rounded-lg mb-4 p-2">
           <div className="w-1/2 text-sm h-24 overflow-y-auto p-2 history-container">
-            {/* History Panel */}
             {history.map((entry, index) => (
               <div key={index}>{entry}</div>
             ))}
           </div>
 
-          <div className="w-1/2 text-right text-3xl font-light flex items-center justify-end p-2">
+          <div className="w-1/2 text-right text-3xl font-semibold flex items-end justify-end p-2">
             {input == "Error" ? input : displayedInput}
           </div>
         </div>
 
         <div className="grid grid-cols-4 gap-4">
-            
+
           <button className="bg-[#a5a5a5] rounded-full aspect-square p-4 text-lg  hover:bg-[#7c7c7c] hover:scale-105 hover:shadow-lg transition-all" onClick={clear}>
             C
           </button>
